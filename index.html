@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexor — Archive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F6F3EC;
+    --paper-dim: #EEE9DD;
+    --ink: #211C15;
+    --ink-soft: #5B5546;
+    --ink-faint: #8A8371;
+    --brass: #8A6432;
+    --line: #D8D0BC;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .entry { transition: transform 0.15s ease, background 0.15s ease; }
+    .stamp { transition: opacity 0.4s ease, transform 0.4s ease; }
+  }
+
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 5rem 1.5rem 6rem;
+  }
+
+  header { margin-bottom: 3.5rem; }
+
+  .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin: 0 0 1rem;
+  }
+
+  h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(2.6rem, 7vw, 4rem);
+    line-height: 1.02;
+    margin: 0 0 1.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  h1 em { font-style: italic; color: var(--ink-soft); }
+
+  .lede {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  .stamp {
+    display: inline-block;
+    margin-top: 1.75rem;
+    padding: 0.35rem 0.85rem;
+    border: 1.5px solid var(--brass);
+    border-radius: 3px;
+    color: var(--brass);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transform: rotate(-2deg);
+  }
+
+  .section-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 0 0 0.75rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .section-label:first-of-type { border-top: none; padding-top: 0; }
+
+  .subsection-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 1.75rem 0 0.5rem;
+  }
+
+  .restricted-badge {
+    font-family: 'Inter', sans-serif;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--ink-faint);
+    font-size: 0.72rem;
+    font-style: italic;
+  }
+
+  ul.ledger { list-style: none; margin: 0 0 0.5rem; padding: 0; }
+
+  .entry {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 0.9rem 0.25rem;
+    border-bottom: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .entry:hover { background: var(--paper-dim); }
+
+  .entry-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    font-weight: 500;
+  }
+
+  .entry-arrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.85rem;
+    color: var(--brass);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .entry:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+
+  .demo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+
+  @media (max-width: 560px) { .demo-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .demo-grid .entry {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    border-right: 1px solid var(--line);
+    padding: 0.9rem 0.75rem;
+  }
+
+  .demo-grid .entry:nth-child(3n) { border-right: none; }
+
+  .doc-tree { margin-bottom: 0.5rem; }
+
+  .doc-folder {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-soft);
+    margin: 1.1rem 0 0.35rem;
+    padding-left: 0.25rem;
+  }
+
+  .doc-folder:first-child { margin-top: 0.25rem; }
+
+  .doc-file {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0.25rem 0.55rem 1.25rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-faint);
+    font-size: 0.92rem;
+  }
+
+  .doc-file .restricted-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  footer {
+    margin-top: 4rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  footer a { color: var(--brass); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Case study archive</p>
+    <h1>Nexor,<br><em>closed for business.</em></h1>
+    <p class="lede">
+      Between 2025 and 2026 I ran Nexor, an AI-voice-agent studio. The
+      business is no longer active, but the work is kept here as a record
+      of what was built — proposals, client demos, and the agency site
+      itself.
+    </p>
+    <span class="stamp">Archived · read only</span>
+  </header>
+
+  <p class="section-label">Agency Websites</p>
+  <ul class="ledger">
+    <li><a class="entry" href="./site/"><span class="entry-name">NEXOR</span><span class="entry-arrow">view →</span></a></li>
+    <li><a class="entry" href="./corporate/"><span class="entry-name">Corporate</span><span class="entry-arrow">view →</span></a></li>
+    <li><a class="entry" href="./agent/"><span class="entry-name">Agent</span><span class="entry-arrow">view →</span></a></li>
+    <li><a class="entry" href="./roi/"><span class="entry-name">Return on Investment Calculator</span><span class="entry-arrow">view →</span></a></li>
+    <li><a class="entry" href="./frontend/"><span class="entry-name">Frontend Designs</span><span class="entry-arrow">view →</span></a></li>
+  </ul>
+
+  <p class="section-label">Documents</p>
+  <ul class="ledger">
+    <li><a class="entry" href="./msa.pdf"><span class="entry-name">Master Service Agreement</span><span class="entry-arrow">PDF →</span></a></li>
+    <li><a class="entry" href="./sow.pdf"><span class="entry-name">Statement of Work</span><span class="entry-arrow">PDF →</span></a></li>
+  </ul>
+
+  <p class="subsection-label">Agent quotes</p>
+  <ul class="ledger">
+    <li><a class="entry" href="./barq.pdf"><span class="entry-name">Barq</span><span class="entry-arrow">PDF →</span></a></li>
+    <li><a class="entry" href="./barq-plus.pdf"><span class="entry-name">Barq Plus</span><span class="entry-arrow">PDF →</span></a></li>
+    <li><a class="entry" href="./business.pdf"><span class="entry-name">Business</span><span class="entry-arrow">PDF →</span></a></li>
+  </ul>
+
+  <p class="subsection-label">SOF <span class="restricted-badge">— contains sensitive pricing, not published</span></p>
+  <div class="doc-tree">
+    <p class="doc-folder">Barq</p>
+    <div class="doc-file"><span>Barq Annual Plan</span><span class="restricted-tag">restricted</span></div>
+    <div class="doc-file"><span>Barq Monthly Plan</span><span class="restricted-tag">restricted</span></div>
+    <div class="doc-file"><span>Barq Monthly Plan + Whitelabel</span><span class="restricted-tag">restricted</span></div>
+
+    <p class="doc-folder">Barq Plus</p>
+    <div class="doc-file"><span>Barq Annual Plan</span><span class="restricted-tag">restricted</span></div>
+    <div class="doc-file"><span>Barq Monthly Plan</span><span class="restricted-tag">restricted</span></div>
+    <div class="doc-file"><span>Barq Monthly Plan + Whitelabel</span><span class="restricted-tag">restricted</span></div>
+
+    <p class="doc-folder">Business</p>
+    <div class="doc-file"><span>Barq Annual Plan</span><span class="restricted-tag">restricted</span></div>
+    <div class="doc-file"><span>Barq Monthly Plan</span><span class="restricted-tag">restricted</span></div>
+    <div class="doc-file"><span>Barq Monthly Plan + Whitelabel</span><span class="restricted-tag">restricted</span></div>
+  </div>
+
+  <p class="section-label">Client demos</p>
+  <div class="demo-grid">
+    <a class="entry" href="./demo/Narcissus/"><span class="entry-name">Narcissus</span><span class="entry-arrow">view →</span></a>
+    <a class="entry" href="./demo/Meena/"><span class="entry-name">Meena</span><span class="entry-arrow">view →</span></a>
+    <a class="entry" href="./demo/iN2Fitness/"><span class="entry-name">iN2Fitness</span><span class="entry-arrow">view →</span></a>
+    <a class="entry" href="./demo/als/"><span class="entry-name">ALS</span><span class="entry-arrow">view →</span></a>
+    <a class="entry" href="./demo/CzechCenter/"><span class="entry-name">Czech Center</span><span class="entry-arrow">view →</span></a>
+    <a class="entry" href="./demo/DiamondClinic/"><span class="entry-name">Diamond Clinic</span><span class="entry-arrow">view →</span></a>
+    <a class="entry" href="./demo/smc/"><span class="entry-name">SMC</span><span class="entry-arrow">view →</span></a>
+    <a class="entry" href="./demo/Almashreq/"><span class="entry-name">Almashreq</span><span class="entry-arrow">view →</span></a>
+    <a class="entry" href="./demo/30Degrees/"><span class="entry-name">30 Degrees</span><span class="entry-arrow">view →</span></a>
+  </div>
+
+  <footer>
+    Current work lives at <a href="https://abdulazizalmutlaq.sa">abdulazizalmutlaq.sa</a>
+  </footer>
+</div>
+</body>
+</html>
