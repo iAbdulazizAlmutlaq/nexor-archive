@@ -55,11 +55,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 5rem 1.5rem;
+    padding: 6rem 2rem;
   }
 
   .wrap {
-    max-width: 760px;
+    max-width: 880px;
     margin: 0 auto;
     width: 100%;
   }
@@ -79,50 +79,50 @@
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.8rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--brass);
-    margin: 0 0 1rem;
+    margin: 0 0 1.25rem;
   }
 
   h1 {
     font-family: 'Fraunces', serif;
     font-weight: 500;
-    font-size: clamp(2.6rem, 7vw, 4.5rem);
+    font-size: clamp(3rem, 8vw, 5.4rem);
     line-height: 1.02;
-    margin: 0 0 1.25rem;
+    margin: 0 0 1.5rem;
     letter-spacing: -0.01em;
   }
 
   h1 em { font-style: italic; color: var(--ink-soft); }
 
   .lede {
-    font-size: 1.05rem;
-    line-height: 1.6;
+    font-size: 1.2rem;
+    line-height: 1.65;
     color: var(--ink-soft);
-    max-width: 52ch;
+    max-width: 58ch;
     margin: 0;
   }
 
   .stamp {
     display: inline-block;
-    margin-top: 1.75rem;
-    padding: 0.35rem 0.85rem;
+    margin-top: 2rem;
+    padding: 0.45rem 1rem;
     border: 1.5px solid var(--brass);
     border-radius: 3px;
     color: var(--brass);
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     transform: rotate(-2deg);
   }
 
   .scroll-cue {
-    margin-top: 3.5rem;
+    margin-top: 4rem;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.72rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ink-faint);
@@ -145,20 +145,20 @@
 
   .section-label {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.8rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    margin: 0 0 1.5rem;
+    margin: 0 0 2rem;
   }
 
   .subsection-label {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.74rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--ink-faint);
-    margin: 1.75rem 0 0.5rem;
+    margin: 2.5rem 0 0.75rem;
   }
 
   .restricted-badge {
@@ -166,7 +166,7 @@
     text-transform: none;
     letter-spacing: 0;
     color: var(--ink-faint);
-    font-size: 0.72rem;
+    font-size: 0.78rem;
     font-style: italic;
   }
 
@@ -174,29 +174,51 @@
 
   .entry {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
-    padding: 0.9rem 0.25rem;
+    padding: 1.15rem 0.25rem;
     border-bottom: 1px solid var(--line);
     text-decoration: none;
     color: inherit;
   }
 
-  .entry:hover { background: var(--paper-dim); }
+  a.entry:hover { background: var(--paper-dim); }
+
+  .entry-static { cursor: default; }
+
+  .entry-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
 
   .entry-name {
     font-family: 'Fraunces', serif;
-    font-size: 1.15rem;
+    font-size: 1.3rem;
     font-weight: 500;
+  }
+
+  .entry-desc {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
   }
 
   .entry-arrow {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.85rem;
+    font-size: 0.92rem;
     color: var(--brass);
     white-space: nowrap;
     flex-shrink: 0;
+  }
+
+  .entry-arrow.restricted-tag {
+    color: var(--ink-faint);
+    font-style: italic;
+    text-transform: none;
+    letter-spacing: 0;
   }
 
   .entry:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
@@ -210,68 +232,66 @@
     align-items: flex-start;
     gap: 0.4rem;
     border-right: 1px solid var(--line);
-    padding: 0.9rem 0.75rem;
+    padding: 1.1rem 0.9rem;
   }
 
   .demo-grid .entry:nth-child(3n) { border-right: none; }
-
-  .doc-tree { margin-bottom: 0.5rem; }
-
-  .doc-folder {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.78rem;
-    letter-spacing: 0.04em;
-    color: var(--ink-soft);
-    margin: 1.1rem 0 0.35rem;
-    padding-left: 0.25rem;
-  }
-
-  .doc-folder:first-child { margin-top: 0.25rem; }
-
-  .doc-file {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.55rem 0.25rem 0.55rem 1.25rem;
-    border-bottom: 1px solid var(--line);
-    color: var(--ink-faint);
-    font-size: 0.92rem;
-  }
-
-  .doc-file .restricted-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--ink-faint);
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
 
   /* ---------- Closing ---------- */
 
   .closing h2 {
     font-family: 'Fraunces', serif;
     font-weight: 500;
-    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    font-size: clamp(2.1rem, 5vw, 3.1rem);
     line-height: 1.1;
-    margin: 0 0 1.25rem;
+    margin: 0 0 1.5rem;
     letter-spacing: -0.01em;
   }
 
   .closing .lede { margin-bottom: 0; }
 
   footer {
-    margin-top: 3rem;
-    padding-top: 1.5rem;
+    margin-top: 3.5rem;
+    padding-top: 1.75rem;
     border-top: 1px solid var(--line);
-    font-size: 0.8rem;
+    font-size: 0.86rem;
     color: var(--ink-soft);
     font-family: 'IBM Plex Mono', monospace;
   }
 
   footer a { color: var(--brass); }
+
+  /* ---------- Farewell ---------- */
+
+  .farewell {
+    text-align: center;
+    align-items: center;
+  }
+
+  .farewell .wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .farewell-word {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(4.5rem, 17vw, 11rem);
+    letter-spacing: 0.01em;
+    color: var(--ink);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .farewell-caption {
+    margin-top: 1.75rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
 
   /* ---------- Section position dots ---------- */
 
@@ -310,8 +330,10 @@
   <a href="#agency"></a>
   <a href="#documents"></a>
   <a href="#quotes"></a>
+  <a href="#marketing"></a>
   <a href="#demos"></a>
   <a href="#closing"></a>
+  <a href="#farewell"></a>
 </nav>
 
 <div class="snap-container" id="snap-container">
@@ -340,11 +362,41 @@
     <div class="wrap">
       <p class="section-label">Agency Websites</p>
       <ul class="ledger">
-        <li><a class="entry" href="./site/"><span class="entry-name">NEXOR</span><span class="entry-arrow">view →</span></a></li>
-        <li><a class="entry" href="./corporate/"><span class="entry-name">Corporate</span><span class="entry-arrow">view →</span></a></li>
-        <li><a class="entry" href="./agent/"><span class="entry-name">Agent</span><span class="entry-arrow">view →</span></a></li>
-        <li><a class="entry" href="./roi/"><span class="entry-name">Return on Investment Calculator</span><span class="entry-arrow">view →</span></a></li>
-        <li><a class="entry" href="./frontend/"><span class="entry-name">Frontend Designs</span><span class="entry-arrow">view →</span></a></li>
+        <li><a class="entry" href="./site/">
+          <span class="entry-text">
+            <span class="entry-name">NEXOR</span>
+            <span class="entry-desc">Company profile</span>
+          </span>
+          <span class="entry-arrow">view →</span>
+        </a></li>
+        <li><a class="entry" href="./corporate/">
+          <span class="entry-text">
+            <span class="entry-name">Corporate</span>
+            <span class="entry-desc">Main agency website</span>
+          </span>
+          <span class="entry-arrow">view →</span>
+        </a></li>
+        <li><a class="entry" href="./agent/">
+          <span class="entry-text">
+            <span class="entry-name">Agent</span>
+            <span class="entry-desc">AI voice agent service — live demonstration</span>
+          </span>
+          <span class="entry-arrow">view →</span>
+        </a></li>
+        <li><a class="entry" href="./roi/">
+          <span class="entry-text">
+            <span class="entry-name">ROI Calculator</span>
+            <span class="entry-desc">Estimate the return on a voice agent deployment</span>
+          </span>
+          <span class="entry-arrow">view →</span>
+        </a></li>
+        <li><a class="entry" href="./frontend/">
+          <span class="entry-text">
+            <span class="entry-name">Frontend Designs</span>
+            <span class="entry-desc">Playground for ultra-futuristic front-end concepts</span>
+          </span>
+          <span class="entry-arrow">view →</span>
+        </a></li>
       </ul>
     </div>
   </section>
@@ -353,27 +405,46 @@
     <div class="wrap">
       <p class="section-label">Documents</p>
       <ul class="ledger">
-        <li><a class="entry" href="./msa.pdf"><span class="entry-name">Master Service Agreement</span><span class="entry-arrow">PDF →</span></a></li>
-        <li><a class="entry" href="./sow.pdf"><span class="entry-name">Statement of Work</span><span class="entry-arrow">PDF →</span></a></li>
+        <li><a class="entry" href="./msa.pdf">
+          <span class="entry-text">
+            <span class="entry-name">Master Service Agreement</span>
+            <span class="entry-desc">The standard contract used for every client engagement</span>
+          </span>
+          <span class="entry-arrow">PDF →</span>
+        </a></li>
+        <li><a class="entry" href="./sow.pdf">
+          <span class="entry-text">
+            <span class="entry-name">Statement of Work</span>
+            <span class="entry-desc">Scope, deliverables, and timeline template</span>
+          </span>
+          <span class="entry-arrow">PDF →</span>
+        </a></li>
       </ul>
 
       <p class="subsection-label">SOF <span class="restricted-badge">— contains sensitive pricing, not published</span></p>
-      <div class="doc-tree">
-        <p class="doc-folder">Barq</p>
-        <div class="doc-file"><span>Barq Annual Plan</span><span class="restricted-tag">restricted</span></div>
-        <div class="doc-file"><span>Barq Monthly Plan</span><span class="restricted-tag">restricted</span></div>
-        <div class="doc-file"><span>Barq Monthly Plan + Whitelabel</span><span class="restricted-tag">restricted</span></div>
-
-        <p class="doc-folder">Barq Plus</p>
-        <div class="doc-file"><span>Barq Annual Plan</span><span class="restricted-tag">restricted</span></div>
-        <div class="doc-file"><span>Barq Monthly Plan</span><span class="restricted-tag">restricted</span></div>
-        <div class="doc-file"><span>Barq Monthly Plan + Whitelabel</span><span class="restricted-tag">restricted</span></div>
-
-        <p class="doc-folder">Business</p>
-        <div class="doc-file"><span>Barq Annual Plan</span><span class="restricted-tag">restricted</span></div>
-        <div class="doc-file"><span>Barq Monthly Plan</span><span class="restricted-tag">restricted</span></div>
-        <div class="doc-file"><span>Barq Monthly Plan + Whitelabel</span><span class="restricted-tag">restricted</span></div>
-      </div>
+      <ul class="ledger">
+        <li><div class="entry entry-static">
+          <span class="entry-text">
+            <span class="entry-name">Barq</span>
+            <span class="entry-desc">Annual, monthly, and whitelabel pricing</span>
+          </span>
+          <span class="entry-arrow restricted-tag">Classified</span>
+        </div></li>
+        <li><div class="entry entry-static">
+          <span class="entry-text">
+            <span class="entry-name">Barq Plus</span>
+            <span class="entry-desc">Annual, monthly, and whitelabel pricing</span>
+          </span>
+          <span class="entry-arrow restricted-tag">Classified</span>
+        </div></li>
+        <li><div class="entry entry-static">
+          <span class="entry-text">
+            <span class="entry-name">Business</span>
+            <span class="entry-desc">Annual, monthly, and whitelabel pricing</span>
+          </span>
+          <span class="entry-arrow restricted-tag">Classified</span>
+        </div></li>
+      </ul>
     </div>
   </section>
 
@@ -381,10 +452,56 @@
     <div class="wrap">
       <p class="section-label">Agent quotes</p>
       <ul class="ledger">
-        <li><a class="entry" href="./barq.pdf"><span class="entry-name">Barq</span><span class="entry-arrow">PDF →</span></a></li>
-        <li><a class="entry" href="./barq-plus.pdf"><span class="entry-name">Barq Plus</span><span class="entry-arrow">PDF →</span></a></li>
-        <li><a class="entry" href="./business.pdf"><span class="entry-name">Business</span><span class="entry-arrow">PDF →</span></a></li>
-        <li><a class="entry" href="./brochure.pdf"><span class="entry-name">Brochure</span><span class="entry-arrow">PDF →</span></a></li>
+        <li><a class="entry" href="./barq.pdf">
+          <span class="entry-text">
+            <span class="entry-name">Barq</span>
+            <span class="entry-desc">Entry-tier quote</span>
+          </span>
+          <span class="entry-arrow">PDF →</span>
+        </a></li>
+        <li><a class="entry" href="./barq-plus.pdf">
+          <span class="entry-text">
+            <span class="entry-name">Barq Plus</span>
+            <span class="entry-desc">Extended-feature tier quote</span>
+          </span>
+          <span class="entry-arrow">PDF →</span>
+        </a></li>
+        <li><a class="entry" href="./business.pdf">
+          <span class="entry-text">
+            <span class="entry-name">Business</span>
+            <span class="entry-desc">Enterprise / whitelabel tier quote</span>
+          </span>
+          <span class="entry-arrow">PDF →</span>
+        </a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="snap-section" id="marketing">
+    <div class="wrap">
+      <p class="section-label">Digital Marketing</p>
+      <ul class="ledger">
+        <li><a class="entry" href="./brochure.pdf">
+          <span class="entry-text">
+            <span class="entry-name">Brochure</span>
+            <span class="entry-desc">Overview handout of the agency and its services</span>
+          </span>
+          <span class="entry-arrow">PDF →</span>
+        </a></li>
+        <li><a class="entry" href="https://youtu.be/D0lPc2L3s7Y?si=NPgfF_O3PfT7IzCw" target="_blank" rel="noopener">
+          <span class="entry-text">
+            <span class="entry-name">NEXOR Marketing Video</span>
+            <span class="entry-desc">What Nexor was as an agency, and what it offered</span>
+          </span>
+          <span class="entry-arrow">watch →</span>
+        </a></li>
+        <li><a class="entry" href="https://youtu.be/4kf2FP6K_vc?si=GOACtF5PddpbPDzH" target="_blank" rel="noopener">
+          <span class="entry-text">
+            <span class="entry-name">Barq Explainer</span>
+            <span class="entry-desc">Walkthrough of the Barq service and its benefits</span>
+          </span>
+          <span class="entry-arrow">watch →</span>
+        </a></li>
       </ul>
     </div>
   </section>
@@ -422,6 +539,13 @@
       <footer>
         Current work lives at <a href="https://abdulazizalmutlaq.sa">abdulazizalmutlaq.sa</a>
       </footer>
+    </div>
+  </section>
+
+  <section class="snap-section farewell" id="farewell">
+    <div class="wrap">
+      <p class="farewell-word">NEXOR</p>
+      <p class="farewell-caption">— end of record —</p>
     </div>
   </section>
 
