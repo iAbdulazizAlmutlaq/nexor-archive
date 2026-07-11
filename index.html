@@ -20,8 +20,12 @@
 
   * { box-sizing: border-box; }
 
-  body {
+  html, body {
+    height: 100%;
     margin: 0;
+  }
+
+  body {
     background: var(--paper);
     color: var(--ink);
     font-family: 'Inter', sans-serif;
@@ -33,13 +37,45 @@
     .stamp { transition: opacity 0.4s ease, transform 0.4s ease; }
   }
 
+  /* ---------- Scroll-snap scaffold ---------- */
+
+  .snap-container {
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+  }
+
+  .snap-section {
+    min-height: 100vh;
+    min-height: 100dvh;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 1.5rem;
+  }
+
   .wrap {
     max-width: 760px;
     margin: 0 auto;
-    padding: 5rem 1.5rem 6rem;
+    width: 100%;
   }
 
-  header { margin-bottom: 3.5rem; }
+  /* ---------- Hero ---------- */
+
+  .hero {
+    text-align: center;
+    align-items: center;
+  }
+
+  .hero .wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   .eyebrow {
     font-family: 'IBM Plex Mono', monospace;
@@ -53,7 +89,7 @@
   h1 {
     font-family: 'Fraunces', serif;
     font-weight: 500;
-    font-size: clamp(2.6rem, 7vw, 4rem);
+    font-size: clamp(2.6rem, 7vw, 4.5rem);
     line-height: 1.02;
     margin: 0 0 1.25rem;
     letter-spacing: -0.01em;
@@ -83,18 +119,38 @@
     transform: rotate(-2deg);
   }
 
+  .scroll-cue {
+    margin-top: 3.5rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-cue svg { animation: bob 1.8s ease-in-out infinite; }
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(5px); }
+  }
+
+  /* ---------- Section labels ---------- */
+
   .section-label {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.72rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    margin: 0 0 0.75rem;
-    padding-top: 2.5rem;
-    border-top: 1px solid var(--line);
+    margin: 0 0 1.5rem;
   }
-
-  .section-label:first-of-type { border-top: none; padding-top: 0; }
 
   .subsection-label {
     font-family: 'IBM Plex Mono', monospace;
@@ -193,8 +249,21 @@
     flex-shrink: 0;
   }
 
+  /* ---------- Closing ---------- */
+
+  .closing h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+    line-height: 1.1;
+    margin: 0 0 1.25rem;
+    letter-spacing: -0.01em;
+  }
+
+  .closing .lede { margin-bottom: 0; }
+
   footer {
-    margin-top: 4rem;
+    margin-top: 3rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--line);
     font-size: 0.8rem;
@@ -203,78 +272,178 @@
   }
 
   footer a { color: var(--brass); }
+
+  /* ---------- Section position dots ---------- */
+
+  .dots {
+    position: fixed;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    z-index: 10;
+  }
+
+  .dots a {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--line);
+    display: block;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .dots a.active {
+    background: var(--brass);
+    transform: scale(1.5);
+  }
+
+  @media (max-width: 700px) { .dots { display: none; } }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <p class="eyebrow">Case study archive</p>
-    <h1>Nexor,<br><em>closed for business.</em></h1>
-    <p class="lede">
-      Between 2025 and 2026 I ran Nexor, an AI-voice-agent one person company. The
-      business is no longer active, but the work is kept here as a record
-      of what was built — proposals, client demos, and the agency site
-      itself.
-    </p>
-    <span class="stamp">Archived · read only</span>
-  </header>
 
-  <p class="section-label">Agency Websites</p>
-  <ul class="ledger">
-    <li><a class="entry" href="./site/"><span class="entry-name">NEXOR</span><span class="entry-arrow">view →</span></a></li>
-    <li><a class="entry" href="./corporate/"><span class="entry-name">Corporate</span><span class="entry-arrow">view →</span></a></li>
-    <li><a class="entry" href="./agent/"><span class="entry-name">Agent</span><span class="entry-arrow">view →</span></a></li>
-    <li><a class="entry" href="./roi/"><span class="entry-name">Return on Investment Calculator</span><span class="entry-arrow">view →</span></a></li>
-    <li><a class="entry" href="./frontend/"><span class="entry-name">Frontend Designs</span><span class="entry-arrow">view →</span></a></li>
-  </ul>
+<nav class="dots" aria-hidden="true">
+  <a href="#hero"></a>
+  <a href="#agency"></a>
+  <a href="#documents"></a>
+  <a href="#quotes"></a>
+  <a href="#demos"></a>
+  <a href="#closing"></a>
+</nav>
 
-  <p class="section-label">Documents</p>
-  <ul class="ledger">
-    <li><a class="entry" href="./msa.pdf"><span class="entry-name">Master Service Agreement</span><span class="entry-arrow">PDF →</span></a></li>
-    <li><a class="entry" href="./sow.pdf"><span class="entry-name">Statement of Work</span><span class="entry-arrow">PDF →</span></a></li>
-  </ul>
+<div class="snap-container" id="snap-container">
 
-  <p class="subsection-label">Agent quotes</p>
-  <ul class="ledger">
-    <li><a class="entry" href="./barq.pdf"><span class="entry-name">Barq</span><span class="entry-arrow">PDF →</span></a></li>
-    <li><a class="entry" href="./barq-plus.pdf"><span class="entry-name">Barq Plus</span><span class="entry-arrow">PDF →</span></a></li>
-    <li><a class="entry" href="./business.pdf"><span class="entry-name">Business</span><span class="entry-arrow">PDF →</span></a></li>
-  </ul>
+  <section class="snap-section hero" id="hero">
+    <div class="wrap">
+      <p class="eyebrow">Case study archive</p>
+      <h1>Nexor,<br><em>closed for business.</em></h1>
+      <p class="lede">
+        Between 2025 and 2026 I ran Nexor, an AI-voice-agent one person company. The
+        business is no longer active, but the work is kept here as a record
+        of what was built — proposals, client demos, and the agency site
+        itself.
+      </p>
+      <span class="stamp">Archived · read only</span>
+      <div class="scroll-cue">
+        <span>Scroll</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 5L7 10L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </section>
 
-  <p class="subsection-label">SOF <span class="restricted-badge">— contains sensitive pricing, not published</span></p>
-  <div class="doc-tree">
-    <p class="doc-folder">Barq</p>
-    <div class="doc-file"><span>Barq Annual Plan</span><span class="restricted-tag">restricted</span></div>
-    <div class="doc-file"><span>Barq Monthly Plan</span><span class="restricted-tag">restricted</span></div>
-    <div class="doc-file"><span>Barq Monthly Plan + Whitelabel</span><span class="restricted-tag">restricted</span></div>
+  <section class="snap-section" id="agency">
+    <div class="wrap">
+      <p class="section-label">Agency Websites</p>
+      <ul class="ledger">
+        <li><a class="entry" href="./site/"><span class="entry-name">NEXOR</span><span class="entry-arrow">view →</span></a></li>
+        <li><a class="entry" href="./corporate/"><span class="entry-name">Corporate</span><span class="entry-arrow">view →</span></a></li>
+        <li><a class="entry" href="./agent/"><span class="entry-name">Agent</span><span class="entry-arrow">view →</span></a></li>
+        <li><a class="entry" href="./roi/"><span class="entry-name">Return on Investment Calculator</span><span class="entry-arrow">view →</span></a></li>
+        <li><a class="entry" href="./frontend/"><span class="entry-name">Frontend Designs</span><span class="entry-arrow">view →</span></a></li>
+      </ul>
+    </div>
+  </section>
 
-    <p class="doc-folder">Barq Plus</p>
-    <div class="doc-file"><span>Barq Annual Plan</span><span class="restricted-tag">restricted</span></div>
-    <div class="doc-file"><span>Barq Monthly Plan</span><span class="restricted-tag">restricted</span></div>
-    <div class="doc-file"><span>Barq Monthly Plan + Whitelabel</span><span class="restricted-tag">restricted</span></div>
+  <section class="snap-section" id="documents">
+    <div class="wrap">
+      <p class="section-label">Documents</p>
+      <ul class="ledger">
+        <li><a class="entry" href="./msa.pdf"><span class="entry-name">Master Service Agreement</span><span class="entry-arrow">PDF →</span></a></li>
+        <li><a class="entry" href="./sow.pdf"><span class="entry-name">Statement of Work</span><span class="entry-arrow">PDF →</span></a></li>
+      </ul>
 
-    <p class="doc-folder">Business</p>
-    <div class="doc-file"><span>Barq Annual Plan</span><span class="restricted-tag">restricted</span></div>
-    <div class="doc-file"><span>Barq Monthly Plan</span><span class="restricted-tag">restricted</span></div>
-    <div class="doc-file"><span>Barq Monthly Plan + Whitelabel</span><span class="restricted-tag">restricted</span></div>
-  </div>
+      <p class="subsection-label">SOF <span class="restricted-badge">— contains sensitive pricing, not published</span></p>
+      <div class="doc-tree">
+        <p class="doc-folder">Barq</p>
+        <div class="doc-file"><span>Barq Annual Plan</span><span class="restricted-tag">restricted</span></div>
+        <div class="doc-file"><span>Barq Monthly Plan</span><span class="restricted-tag">restricted</span></div>
+        <div class="doc-file"><span>Barq Monthly Plan + Whitelabel</span><span class="restricted-tag">restricted</span></div>
 
-  <p class="section-label">Client demos</p>
-  <div class="demo-grid">
-    <a class="entry" href="./demo/Narcissus/"><span class="entry-name">Narcissus</span><span class="entry-arrow">view →</span></a>
-    <a class="entry" href="./demo/Meena/"><span class="entry-name">Meena</span><span class="entry-arrow">view →</span></a>
-    <a class="entry" href="./demo/iN2Fitness/"><span class="entry-name">iN2Fitness</span><span class="entry-arrow">view →</span></a>
-    <a class="entry" href="./demo/als/"><span class="entry-name">ALS</span><span class="entry-arrow">view →</span></a>
-    <a class="entry" href="./demo/CzechCenter/"><span class="entry-name">Czech Center</span><span class="entry-arrow">view →</span></a>
-    <a class="entry" href="./demo/DiamondClinic/"><span class="entry-name">Diamond Clinic</span><span class="entry-arrow">view →</span></a>
-    <a class="entry" href="./demo/smc/"><span class="entry-name">SMC</span><span class="entry-arrow">view →</span></a>
-    <a class="entry" href="./demo/Almashreq/"><span class="entry-name">Almashreq</span><span class="entry-arrow">view →</span></a>
-    <a class="entry" href="./demo/30Degrees/"><span class="entry-name">30 Degrees</span><span class="entry-arrow">view →</span></a>
-  </div>
+        <p class="doc-folder">Barq Plus</p>
+        <div class="doc-file"><span>Barq Annual Plan</span><span class="restricted-tag">restricted</span></div>
+        <div class="doc-file"><span>Barq Monthly Plan</span><span class="restricted-tag">restricted</span></div>
+        <div class="doc-file"><span>Barq Monthly Plan + Whitelabel</span><span class="restricted-tag">restricted</span></div>
 
-  <footer>
-    Current work lives at <a href="https://abdulazizalmutlaq.sa">abdulazizalmutlaq.sa</a>
-  </footer>
+        <p class="doc-folder">Business</p>
+        <div class="doc-file"><span>Barq Annual Plan</span><span class="restricted-tag">restricted</span></div>
+        <div class="doc-file"><span>Barq Monthly Plan</span><span class="restricted-tag">restricted</span></div>
+        <div class="doc-file"><span>Barq Monthly Plan + Whitelabel</span><span class="restricted-tag">restricted</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="snap-section" id="quotes">
+    <div class="wrap">
+      <p class="section-label">Agent quotes</p>
+      <ul class="ledger">
+        <li><a class="entry" href="./barq.pdf"><span class="entry-name">Barq</span><span class="entry-arrow">PDF →</span></a></li>
+        <li><a class="entry" href="./barq-plus.pdf"><span class="entry-name">Barq Plus</span><span class="entry-arrow">PDF →</span></a></li>
+        <li><a class="entry" href="./business.pdf"><span class="entry-name">Business</span><span class="entry-arrow">PDF →</span></a></li>
+        <li><a class="entry" href="./brochure.pdf"><span class="entry-name">Brochure</span><span class="entry-arrow">PDF →</span></a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="snap-section" id="demos">
+    <div class="wrap">
+      <p class="section-label">Client demos</p>
+      <div class="demo-grid">
+        <a class="entry" href="./demo/Narcissus/"><span class="entry-name">Narcissus</span><span class="entry-arrow">view →</span></a>
+        <a class="entry" href="./demo/Meena/"><span class="entry-name">Meena</span><span class="entry-arrow">view →</span></a>
+        <a class="entry" href="./demo/iN2Fitness/"><span class="entry-name">iN2Fitness</span><span class="entry-arrow">view →</span></a>
+        <a class="entry" href="./demo/als/"><span class="entry-name">ALS</span><span class="entry-arrow">view →</span></a>
+        <a class="entry" href="./demo/CzechCenter/"><span class="entry-name">Czech Center</span><span class="entry-arrow">view →</span></a>
+        <a class="entry" href="./demo/DiamondClinic/"><span class="entry-name">Diamond Clinic</span><span class="entry-arrow">view →</span></a>
+        <a class="entry" href="./demo/smc/"><span class="entry-name">SMC</span><span class="entry-arrow">view →</span></a>
+        <a class="entry" href="./demo/Almashreq/"><span class="entry-name">Almashreq</span><span class="entry-arrow">view →</span></a>
+        <a class="entry" href="./demo/30Degrees/"><span class="entry-name">30 Degrees</span><span class="entry-arrow">view →</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="snap-section closing" id="closing">
+    <div class="wrap">
+      <p class="eyebrow">Closing entry</p>
+      <h2>Thank you for being part of it.</h2>
+      <p class="lede">
+        Nexor started as a bet that AI voice agents were worth building
+        seriously, one person, one client at a time. Everything in this
+        archive — every proposal, every demo, every late revision — exists
+        because someone was willing to say yes before there was a track
+        record to point to. That's the part of this I keep. The business is
+        closed, but I'm grateful for every conversation, every client, and
+        everyone who helped along the way.
+      </p>
+      <footer>
+        Current work lives at <a href="https://abdulazizalmutlaq.sa">abdulazizalmutlaq.sa</a>
+      </footer>
+    </div>
+  </section>
+
 </div>
+
+<script>
+  // Highlight the active dot based on which section is in view.
+  const sections = document.querySelectorAll('.snap-section');
+  const dots = document.querySelectorAll('.dots a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const idx = Array.from(sections).indexOf(entry.target);
+        dots.forEach((d) => d.classList.remove('active'));
+        if (dots[idx]) dots[idx].classList.add('active');
+      }
+    });
+  }, { root: document.getElementById('snap-container'), threshold: 0.5 });
+
+  sections.forEach((s) => observer.observe(s));
+</script>
+
 </body>
 </html>
