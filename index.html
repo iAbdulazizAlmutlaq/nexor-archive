@@ -754,6 +754,7 @@
   // Highlight the active dot based on which section is in view.
   const sections = document.querySelectorAll('.snap-section');
   const dots = document.querySelectorAll('.dots a');
+  const container = document.getElementById('snap-container');
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -763,9 +764,37 @@
         if (dots[idx]) dots[idx].classList.add('active');
       }
     });
-  }, { root: document.getElementById('snap-container'), threshold: 0.5 });
+  }, { root: container, threshold: 0.5 });
 
   sections.forEach((s) => observer.observe(s));
+
+  // ---------- Remember scroll position across visits ----------
+  // Links to PDFs, images, and demo sites navigate away from this page.
+  // Restore the exact section the visitor was on when they come back
+  // (via back button, bookmark, or reopening the tab).
+  const SCROLL_KEY = 'nexor-archive-scroll-pos';
+
+  // Save position continuously as the visitor scrolls (cheap, no throttle needed
+  // since scroll-snap fires infrequently).
+  container.addEventListener('scroll', () => {
+    sessionStorage.setItem(SCROLL_KEY, container.scrollTop);
+  });
+
+  function restoreScroll() {
+    const saved = sessionStorage.getItem(SCROLL_KEY);
+    if (saved !== null) {
+      container.scrollTo({ top: parseInt(saved, 10), behavior: 'instant' });
+    }
+  }
+
+  // Normal load (including back/forward navigations that trigger a fresh load).
+  restoreScroll();
+
+  // Back/forward navigations restored from the browser's bfcache don't fire a
+  // normal load — catch those too.
+  window.addEventListener('pageshow', (event) => {
+    if (event.persisted) restoreScroll();
+  });
 </script>
 
 </body>
