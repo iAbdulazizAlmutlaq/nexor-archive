@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="restoring-scroll">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<noscript><style>.snap-container { visibility: visible !important; }</style></noscript>
 <style>
   :root {
     --paper: #F6F3EC;
@@ -45,6 +46,12 @@
     overflow-y: scroll;
     scroll-snap-type: y mandatory;
     scroll-behavior: smooth;
+  }
+
+  /* Keep the page invisible for one frame while JS restores scroll position,
+     so the jump to the saved section never becomes visible as a blink. */
+  html.restoring-scroll .snap-container {
+    visibility: hidden;
   }
 
   .snap-section {
@@ -785,15 +792,24 @@
     if (saved !== null) {
       container.scrollTo({ top: parseInt(saved, 10), behavior: 'instant' });
     }
+    // Reveal the page now that it's positioned correctly — nothing jumps
+    // into view because it was hidden until this point.
+    document.documentElement.classList.remove('restoring-scroll');
   }
 
   // Normal load (including back/forward navigations that trigger a fresh load).
   restoreScroll();
 
   // Back/forward navigations restored from the browser's bfcache don't fire a
-  // normal load — catch those too.
+  // normal load — catch those too. The page is already visible in this case
+  // (bfcache preserves DOM state), so just re-sync the scroll position.
   window.addEventListener('pageshow', (event) => {
-    if (event.persisted) restoreScroll();
+    if (event.persisted) {
+      const saved = sessionStorage.getItem(SCROLL_KEY);
+      if (saved !== null) {
+        container.scrollTo({ top: parseInt(saved, 10), behavior: 'instant' });
+      }
+    }
   });
 </script>
 
