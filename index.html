@@ -237,6 +237,55 @@
 
   .demo-grid .entry:nth-child(3n) { border-right: none; }
 
+  /* ---------- SOF pricing chips ---------- */
+
+  .tier-entry {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    padding: 1.15rem 0.25rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .tier-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.3rem;
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  .tier-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .chip {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    padding: 0.35rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+    white-space: nowrap;
+  }
+
+  .chip:hover {
+    border-color: var(--brass);
+    color: var(--brass);
+    background: var(--paper-dim);
+  }
+
+  @media (max-width: 560px) {
+    .tier-entry { flex-direction: column; align-items: flex-start; }
+  }
+
   /* ---------- Closing ---------- */
 
   .closing h2 {
@@ -248,7 +297,55 @@
     letter-spacing: -0.01em;
   }
 
+  .closing-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(2.3rem, 5.5vw, 3.4rem);
+    line-height: 1.15;
+    margin: 0 0 1.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .closing-title .thank-you {
+    display: block;
+    color: var(--ink);
+  }
+
+  .closing-title .nexor-name {
+    display: inline;
+    font-style: italic;
+    color: var(--brass);
+  }
+
+  .closing-title .grateful {
+    display: block;
+    font-size: 0.55em;
+    font-style: italic;
+    color: var(--ink-soft);
+    margin-top: 0.4rem;
+    letter-spacing: 0;
+  }
+
   .closing .lede { margin-bottom: 0; }
+
+  .signature {
+    margin-top: 2.5rem;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.35rem;
+    color: var(--ink);
+  }
+
+  .signature-role {
+    display: block;
+    margin-top: 0.3rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-style: normal;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+  }
 
   footer {
     margin-top: 3.5rem;
@@ -327,10 +424,12 @@
 
 <nav class="dots" aria-hidden="true">
   <a href="#hero"></a>
+  <a href="#records"></a>
   <a href="#agency"></a>
   <a href="#documents"></a>
   <a href="#quotes"></a>
   <a href="#marketing"></a>
+  <a href="#brand"></a>
   <a href="#demos"></a>
   <a href="#closing"></a>
   <a href="#farewell"></a>
@@ -355,6 +454,49 @@
           <path d="M2 5L7 10L12 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
+    </div>
+  </section>
+
+  <section class="snap-section" id="records">
+    <div class="wrap">
+      <p class="section-label">Business Records</p>
+      <ul class="ledger">
+        <li><a class="entry" href="./commercial-registration.png">
+          <span class="entry-text">
+            <span class="entry-name">Commercial Registration</span>
+            <span class="entry-desc">The company's official CR certificate</span>
+          </span>
+          <span class="entry-arrow">view →</span>
+        </a></li>
+        <li><a class="entry" href="./VAT-certificate.pdf">
+          <span class="entry-text">
+            <span class="entry-name">VAT Certificate</span>
+            <span class="entry-desc">Value-added tax registration certificate</span>
+          </span>
+          <span class="entry-arrow">PDF →</span>
+        </a></li>
+        <li><a class="entry" href="./trademark-file-certificate.pdf">
+          <span class="entry-text">
+            <span class="entry-name">Trademark File Certificate</span>
+            <span class="entry-desc">SAIP filing certificate for the Nexor trademark</span>
+          </span>
+          <span class="entry-arrow">PDF →</span>
+        </a></li>
+        <li><a class="entry" href="./official-trademark-translation.pdf">
+          <span class="entry-text">
+            <span class="entry-name">Official Trademark Translation</span>
+            <span class="entry-desc">Certified translation submitted alongside the filing</span>
+          </span>
+          <span class="entry-arrow">PDF →</span>
+        </a></li>
+        <li><a class="entry" href="./business-bank-account.png">
+          <span class="entry-text">
+            <span class="entry-name">Business Bank Account</span>
+            <span class="entry-desc">Corporate account confirmation</span>
+          </span>
+          <span class="entry-arrow">view →</span>
+        </a></li>
+      </ul>
     </div>
   </section>
 
@@ -403,7 +545,7 @@
 
   <section class="snap-section" id="documents">
     <div class="wrap">
-      <p class="section-label">Documents</p>
+      <p class="section-label">Legal Documents</p>
       <ul class="ledger">
         <li><a class="entry" href="./msa.pdf">
           <span class="entry-text">
@@ -421,28 +563,31 @@
         </a></li>
       </ul>
 
-      <p class="subsection-label">SOF <span class="restricted-badge">— contains sensitive information, not published</span></p>
+      <p class="subsection-label">SOF</p>
       <ul class="ledger">
-        <li><div class="entry entry-static">
-          <span class="entry-text">
-            <span class="entry-name">Barq</span>
-            <span class="entry-desc">Annual, monthly, and whitelabel pricing</span>
+        <li><div class="tier-entry">
+          <span class="tier-name">Barq</span>
+          <span class="tier-chips">
+            <a class="chip" href="./sof-barq-annual.pdf">Annual</a>
+            <a class="chip" href="./sof-barq-monthly.pdf">Monthly</a>
+            <a class="chip" href="./sof-barq-monthly-white-label.pdf">Monthly · White Label</a>
           </span>
-          <span class="entry-arrow restricted-tag">Classified</span>
         </div></li>
-        <li><div class="entry entry-static">
-          <span class="entry-text">
-            <span class="entry-name">Barq Plus</span>
-            <span class="entry-desc">Annual, monthly, and whitelabel pricing</span>
+        <li><div class="tier-entry">
+          <span class="tier-name">Barq Plus</span>
+          <span class="tier-chips">
+            <a class="chip" href="./sof-barqplus-annual.pdf">Annual</a>
+            <a class="chip" href="./sof-barqplus-monthly.pdf">Monthly</a>
+            <a class="chip" href="./sof-barqplus-monthly-white-label.pdf">Monthly · White Label</a>
           </span>
-          <span class="entry-arrow restricted-tag">Classified</span>
         </div></li>
-        <li><div class="entry entry-static">
-          <span class="entry-text">
-            <span class="entry-name">Business</span>
-            <span class="entry-desc">Annual, monthly, and whitelabel pricing</span>
+        <li><div class="tier-entry">
+          <span class="tier-name">Business</span>
+          <span class="tier-chips">
+            <a class="chip" href="./sof-business-annual.pdf">Annual</a>
+            <a class="chip" href="./sof-business-monthly.pdf">Monthly</a>
+            <a class="chip" href="./sof-business-monthly-white-label.pdf">Monthly · White Label</a>
           </span>
-          <span class="entry-arrow restricted-tag">Classified</span>
         </div></li>
       </ul>
     </div>
@@ -506,6 +651,49 @@
     </div>
   </section>
 
+  <section class="snap-section" id="brand">
+    <div class="wrap">
+      <p class="section-label">Brand Assets</p>
+      <ul class="ledger">
+        <li><a class="entry" href="./nexor-official-logo.png">
+          <span class="entry-text">
+            <span class="entry-name">Official Logo</span>
+            <span class="entry-desc">Primary NEXOR wordmark</span>
+          </span>
+          <span class="entry-arrow">view →</span>
+        </a></li>
+        <li><a class="entry" href="./nexor-official-motto.png">
+          <span class="entry-text">
+            <span class="entry-name">Tagline</span>
+            <span class="entry-desc">"Your gateway to AI integration"</span>
+          </span>
+          <span class="entry-arrow">view →</span>
+        </a></li>
+        <li><a class="entry" href="./nexor-favicon.png">
+          <span class="entry-text">
+            <span class="entry-name">Favicon</span>
+            <span class="entry-desc">Icon mark used across the agency site and demos</span>
+          </span>
+          <span class="entry-arrow">view →</span>
+        </a></li>
+        <li><a class="entry" href="./founder-business-card-design.pdf">
+          <span class="entry-text">
+            <span class="entry-name">Founder's Business Card</span>
+            <span class="entry-desc">Print design for the founder's business card</span>
+          </span>
+          <span class="entry-arrow">PDF →</span>
+        </a></li>
+        <li><a class="entry" href="./founder-email-signature.png">
+          <span class="entry-text">
+            <span class="entry-name">Founder's Email Signature</span>
+            <span class="entry-desc">Email signature design used by the founder</span>
+          </span>
+          <span class="entry-arrow">view →</span>
+        </a></li>
+      </ul>
+    </div>
+  </section>
+
   <section class="snap-section" id="demos">
     <div class="wrap">
       <p class="section-label">Client demos</p>
@@ -526,15 +714,26 @@
   <section class="snap-section closing" id="closing">
     <div class="wrap">
       <p class="eyebrow">Closing entry</p>
-      <h2>Thank you for being part of it.</h2>
+      <h2 class="closing-title">
+        <span class="thank-you">Thank You, <span class="nexor-name">NEXOR</span>.</span>
+        <span class="grateful">Super grateful for it all.</span>
+      </h2>
       <p class="lede">
         Nexor started as a bet that AI voice agents were worth building
         seriously, one person, one client at a time. Everything in this
         archive — every proposal, every demo, every late revision — exists
-        because someone was willing to say yes before there was a track
-        record to point to. That's the part of this I keep. The business is
-        closed, but I'm grateful for every conversation, every client, and
-        everyone who helped along the way.
+        because someone believed in the work before there was a track
+        record to prove it. I'm grateful for every client, every lesson,
+        and every version of myself it took to get here. I forgive the
+        parts that didn't work, the timing that wasn't right, and my own
+        mistakes along the way — they were the cost of trying. Closing
+        this chapter doesn't erase it; it just makes room for what's next.
+        And I believe, genuinely, that what's ahead is better than what
+        came before.
+      </p>
+      <p class="signature">
+        Abdulaziz Almutlaq
+        <span class="signature-role">Founder, Nexor</span>
       </p>
       <footer>
         Current work lives at <a href="https://abdulazizalmutlaq.sa">abdulazizalmutlaq.sa</a>
